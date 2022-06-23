@@ -1,7 +1,9 @@
 #include <Tutorial.h>
+#include <test.h>
+
+using namespace Eigen;
 
 // a hack square root calculation using simple operations
-
 double mysqrt(double x)
 {
   
@@ -22,20 +24,23 @@ double mysqrt(double x)
   return result;
 }
 
-#ifdef ENABLE_TESTS
-#include <tests.h>
 
 TEST_CASE("Test Doctest")
 {
-  plt::plot({1,3,2,4});
+  ArrayXf x(4);
+  x << 1, 3, 3, 4;
+
+  plt::plot(x);
   plt::save("mysqrt.png");
   CHECK(doctest::Approx(3.f) == mysqrt(9.f));
 }
 
-TEST_CASE("Test Doctest2")
+TEST_CASE("Test Doctest3")
 {
-  plt::plot({1,3,2,4,5});
+	//plt::figure(3);
+  ArrayXf x(5);
+  x << 1, 3, 2, 4, 5;
+  plt::plot(x);
   plt::save("mysqrt2.png");
   CHECK(doctest::Approx(2.f) == mysqrt(4.f));
 }
-#endif
