@@ -32,4 +32,8 @@
 *.app
 
 lib/
-build/
+build/debug/make
+build/release/make
+build/test_debug/make
+build/test_release/make
+inc/TutorialConfig.h
