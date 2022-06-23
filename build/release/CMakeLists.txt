@@ -7,7 +7,7 @@ project(Tutorial_release)
 
 # ---- Include guards ----
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
-  message(FATAL_ERROR "Builds are not allowed in this folder. Please use the directory build/release.")
+  message(FATAL_ERROR "Builds are not allowed in this folder. Please create a subfolder in build/release.")
 endif()
 
 # ---- Dependencies ----

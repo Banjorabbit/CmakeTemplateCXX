@@ -7,7 +7,7 @@ project(Tutorial_debug)
 
 # ---- Include guards ----
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
-  message(FATAL_ERROR "Builds are not allowed in this folder. Please use the directory build/debug.")
+  message(FATAL_ERROR "Builds are not allowed in this folder. Please create a subfolder in build/debug.")
 endif()
 
 # ---- Dependencies ----
