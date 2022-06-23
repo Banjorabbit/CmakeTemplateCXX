@@ -83,11 +83,13 @@ endif()
 
 # ---- Add and configure target ----
 # Note that the project is exported as OBJECT to allow doctest to see the tests when linking
-add_library(${PROJECT_NAME} OBJECT ${PROJECT_SOURCE_DIR}/inc/Tutorial.h ${PROJECT_SOURCE_DIR}/inc/TutorialConfig.h ${PROJECT_SOURCE_DIR}/src/Tutorial.cpp)
 
-
-
-
+# Note: globbing sources is considered bad practice as CMake's generators may not detect new files
+# automatically. Keep that in mind when changing files, or explicitly mention them here.
+file(GLOB_RECURSE headers CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h")
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE headers_private CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
+add_library(${PROJECT_NAME} OBJECT ${headers} ${sources} ${headers_private})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 11)
 set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_CXX_FLAGS "-Wall -Wextra")
@@ -100,6 +102,7 @@ target_compile_options(${PROJECT_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>
 # Link and include
 target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTRA_LIBS}) # add links to libraries
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/inc> $<INSTALL_INTERFACE:inc/${PROJECT_NAME}-${PROJECT_VERSION}> ) #add to search path for #include
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src)
 
 # add libraries to include path (not used anymore)
 #list(APPEND EXTRA_INCLUDES ${CMAKE_SOURCE_DIR}/lib) #add to search path for #include
